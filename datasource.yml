@@ -1,0 +1,30 @@
+version: '3.3'
+services:
+  mysql-db:
+    restart: on-failure
+    container_name: mysql
+    networks:
+      - my_network
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=tyZnEfTQhn
+  cache:
+    restart: on-failure
+    container_name: redis
+    networks:
+      - my_network
+    image: redis
+    entrypoint: redis-server --requirepass mL5rMG7iYf28U31VjdX0cDfDZ2j9sLTn
+    ports:
+      - 6378:6379
+volumes:
+  mysql:
+networks:
+  my_network:
+    external: true
+
